@@ -59,13 +59,10 @@ module.exports = function(grunt) {
         }
       }
     },
-    uglify: {
-      dist: {
-        src: [
-          'tmp/videojs-dash.js'
-        ],
-        dest: 'tmp/videojs-dash.min.js'
-      }
+    shell: {
+        uglifyjs: {
+            command: 'node_modules/uglifyjs/bin/uglifyjs tmp/videojs-dash.js > tmp/videojs-dash.min.js',
+        }
     },
     concat: {
       options: {
@@ -96,6 +93,6 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.registerTask('test', 'karma');
-  grunt.registerTask('build', ['clean', 'jshint', 'browserify', 'babel', 'uglify', 'concat']);
+  grunt.registerTask('build', ['clean', 'jshint', 'browserify', 'babel', 'shell:uglifyjs', 'concat']);
   grunt.registerTask('default', ['build', 'test']);
 };
