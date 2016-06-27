@@ -1,6 +1,7 @@
 import window from 'global/window';
 import videojs from 'video.js';
 import dashjs from 'dashjs';
+import DashjsWrapper from 'streamroot-dashjs-p2p-wrapper';
 
 let
   isArray = function(a) {
@@ -46,6 +47,12 @@ class Html5DashJS {
     // reuse MediaPlayer if it already exists
     if (!this.mediaPlayer_) {
       this.mediaPlayer_ = dashjs.MediaPlayer(Html5DashJS.context_).create();
+
+      // initializing streamroot-dashjs-p2p-wrapper
+      if (options && options.streamroot && options.streamroot.p2pConfig) {
+        let liveDelay = 30;
+        this.dashjsWrapper_ = new DashjsWrapper(this.mediaPlayer_, options.streamroot.p2pConfig, liveDelay);
+      }
     }
 
     // Log MedaPlayer messages through video.js
@@ -62,14 +69,14 @@ class Html5DashJS {
     // Must run controller before these two lines or else there is no
     // element to bind to.
     this.mediaPlayer_.initialize();
-    
+
     // Apply any options that are set
     if (options.dash && options.dash.limitBitrateByPortal) {
       this.mediaPlayer_.setLimitBitrateByPortal(true);
     } else {
       this.mediaPlayer_.setLimitBitrateByPortal(false);
     }
-    
+
     this.mediaPlayer_.attachView(this.el_);
 
     // Dash.js autoplays by default, video.js will handle autoplay
