@@ -4,12 +4,15 @@ A video.js source handler for supporting MPEG-DASH playback over P2P or CDN thro
 
 ## Getting started
 
-Run `npm install` to install necessary dependencies like [streamroot-dashjs-p2p-wrapper](https://github.com/streamroot/dashjs-p2p-wrapper) and build the source handler. Build is triggered automatically after `npm install`.
-Use `grunt build` to build the files(will be placed into `dist` directory).
+Run `npm install` to install necessary dependencies such as [streamroot-dashjs-p2p-wrapper](https://github.com/streamroot/dashjs-p2p-wrapper) and build the source handler. Build is triggered automatically after `npm install`.
 
-Except build file, you'll need [video.js 5.0+](http://videojs.com/getting-started/) and `dash.js` v2.1.0+ included in your web page, either its [minified](http://dashif.org/reference/players/javascript/v2.1.0/dash.js/dist/dash.all.min.js) or [debug](http://dashif.org/reference/players/javascript/v2.1.0/dash.js/dist/dash.all.debug.js) version.
+You can also use `grunt build` to build the files after a manual update.
 
-To enable graphs of P2P traffic you can add following lines to you page:
+The built files will be placed into `dist` directory.
+
+In addition to built files, you'll need to include [video.js 5.0+](http://videojs.com/getting-started/) and `dash.js` v2.1.0+ in your web page. For `dash.js` you can use either its [minified](http://dashif.org/reference/players/javascript/v2.1.0/dash.js/dist/dash.all.min.js) or [debug](http://dashif.org/reference/players/javascript/v2.1.0/dash.js/dist/dash.all.debug.js) version.
+
+To enable a graphic visualization of P2P traffic (as a debug tool), you can add following lines to your page. Note that in this case, `p2pConfig` must include `debug: true` as described [here](https://streamroot.readme.io/docs/p2p-config) :
 
 ```javascript
 <script src="http://cdn.streamroot.io/2/scripts/p2pGraph.js"></script>
@@ -25,7 +28,7 @@ Putting it all together:
 <html>
 <head>
   <!-- dash.js -->
-  <script src="http://dashif.org/reference/players/javascript/2.1.0/dash.js/dist/dash.all.debug.js"></script>
+  <script src="http://dashif.org/reference/players/javascript/2.1.1/dash.js/dist/dash.all.debug.js"></script>
 
   <!-- video.js -->
   <link href="//vjs.zencdn.net/5.8/video-js.min.css" rel="stylesheet">
@@ -79,14 +82,14 @@ Putting it all together:
 
 Checkout [live example here](http://streamroot.github.io/videojs-contrib-dash/).
 
-You can select sample MPD using combox above the video. Also you can pass arbitary manifest url to test page as get param like this: `http://streamroot.github.io/videojs-contrib-dash/?mpd=encodeURIComponent_manifest_url_here`, just don't forget to `encodeURIComponent` it first.
+You can select a sample MPD using combox above the video. You can also pass an arbitary manifest url to the test page as a get param like this: `http://streamroot.github.io/videojs-contrib-dash/?mpd=encodeURIComponent_manifest_url_here`. Don't forget to `encodeURIComponent` it first.
 
 Below the video you can see p2p statistics & graphs.
-For a quick p2p test you can open several tabs with the same manifest and start playback. After a while you should see p2p trafic on graph.
+For a quick p2p test you can open several tabs with the same manifest and start playback. After a while you should see p2p traffic on the graphs.
 
 ## How it works
 
-[streamroot-dashjs-p2p-wrapper](https://github.com/streamroot/dashjs-p2p-wrapper) is added as a dependecny into `package.json`
+[streamroot-dashjs-p2p-wrapper](https://github.com/streamroot/dashjs-p2p-wrapper) is added as a dependency into `package.json`
 
 ```json
   ...
@@ -105,7 +108,7 @@ Wrapper is imported in [dash.js source handler](https://github.com/streamroot/vi
 import DashjsWrapper from 'streamroot-dashjs-p2p-wrapper';
 ```
 
-And instantiated after `dashjs.MediaPlayer` is created. `dashjs.MediaPlayer` instance, p2p config and live delay value  are passed as parameters to wrapper constructor:
+and instantiated after `dashjs.MediaPlayer` is created. `dashjs.MediaPlayer` instance, p2p config and live delay value are passed as parameters to wrapper constructor:
 
 ```javascript
 if (options && options.streamroot && options.streamroot.p2pConfig) {
