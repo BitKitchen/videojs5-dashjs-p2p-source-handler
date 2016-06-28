@@ -10,7 +10,7 @@ You can also use `grunt build` to build the files after a manual update.
 
 The built files will be placed into `dist` directory.
 
-In addition to built files, you'll need to include [video.js 5.0+](http://videojs.com/getting-started/) and `dash.js` v2.1.0+ in your web page. For `dash.js` you can use either its [minified](http://dashif.org/reference/players/javascript/v2.1.0/dash.js/dist/dash.all.min.js) or [debug](http://dashif.org/reference/players/javascript/v2.1.0/dash.js/dist/dash.all.debug.js) version.
+In addition to built files, you'll need to include [video.js 5.0+](http://videojs.com/getting-started/) and `dash.js` v2.1.1+ in your web page. For `dash.js` you can use either its [minified](http://dashif.org/reference/players/javascript/v2.1.1/dash.js/dist/dash.all.min.js) or [debug](http://dashif.org/reference/players/javascript/v2.1.1/dash.js/dist/dash.all.debug.js) version.
 
 To enable a graphic visualization of P2P traffic (as a debug tool), you can add following lines to your page. Note that in this case, `p2pConfig` must include `debug: true` as described [here](https://streamroot.readme.io/docs/p2p-config) :
 
