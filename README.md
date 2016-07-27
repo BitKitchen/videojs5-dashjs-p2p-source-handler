@@ -80,9 +80,9 @@ Putting it all together:
 
 ## Example
 
-Checkout [live example here](http://streamroot.github.io/videojs-contrib-dash/).
+Checkout [live example here](http://streamroot.github.io/videojs5-dashjs-p2p-source-handler/).
 
-You can select a sample MPD using combox above the video. You can also pass an arbitary manifest url to the test page as a get param like this: `http://streamroot.github.io/videojs-contrib-dash/?mpd=encodeURIComponent_manifest_url_here`. Don't forget to `encodeURIComponent` it first.
+You can select a sample MPD using combox above the video. You can also pass an arbitary manifest url to the test page as a get param like this: `http://streamroot.github.io/videojs5-dashjs-p2p-source-handler/?mpd=encodeURIComponent_manifest_url_here`. Don't forget to `encodeURIComponent` it first.
 
 Below the video you can see p2p statistics & graphs.
 For a quick p2p test you can open several tabs with the same manifest and start playback. After a while you should see p2p traffic on the graphs.
@@ -102,7 +102,7 @@ For a quick p2p test you can open several tabs with the same manifest and start 
   ...
 ```
 
-Wrapper is imported in [dash.js source handler](https://github.com/streamroot/videojs-contrib-dash/blob/streamroot-p2p/src/js/videojs-dash.js):
+Wrapper is imported in [dash.js source handler](https://github.com/streamroot/videojs5-dashjs-p2p-source-handler/blob/master/src/js/videojs-dash.js):
 
 ```javascript
 import DashjsWrapper from 'streamroot-dashjs-p2p-wrapper';
