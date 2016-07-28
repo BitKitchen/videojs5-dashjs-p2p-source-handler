@@ -74,12 +74,6 @@ module.exports = function(grunt) {
         ],
         dest: 'dist/videojs-dash.min.js'
       },
-      debug: {
-        src: [
-          'tmp/videojs-dash.js'
-        ],
-        dest: 'dist/videojs-dash.js'
-      }
     },
     karma: {
       test: {
