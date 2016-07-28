@@ -1,34 +1,128 @@
-# video.js MPEG-DASH Source Handler
+# video.js MPEG-DASH Source Handler with integrated Streamroot dashjs p2p module
 
-[![Build Status](https://travis-ci.org/videojs/videojs-contrib-dash.svg?branch=master)](https://travis-ci.org/videojs/videojs-contrib-dash)
+A video.js source handler for supporting MPEG-DASH playback over P2P or CDN through a video.js player on browsers with support for Media Source Extensions.
 
-A video.js source handler for supporting MPEG-DASH playback through a video.js player on browsers with support for Media Source Extensions.
+## Getting started
 
-## Getting Started
+Run `npm install` to install necessary dependencies such as [streamroot-dashjs-p2p-wrapper](https://github.com/streamroot/dashjs-p2p-wrapper) and build the source handler. Build is triggered automatically after `npm install`.
 
-Download [Dash.js](https://github.com/Dash-Industry-Forum/dash.js/releases) and [videojs-contrib-dash](https://github.com/videojs/videojs-contrib-dash/releases). Include them both in your web page along with video.js:
+You can also use `grunt build` to build the files after a manual update.
 
-```html
-<video id=example-video width=600 height=300 class="video-js vjs-default-skin" controls>
-  <source
-     src="https://example.com/dash.mpd"
-     type="application/dash+xml">
-</video>
-<script src="video.js"></script>
+The built files will be placed into `dist` directory.
 
-<!-- Dash.js -->
-<script src="dash.all.min.js"></script>
+In addition to built files, you'll need to include [video.js 5.0+](http://videojs.com/getting-started/) and `dash.js` v2.1.1+ in your web page. For `dash.js` you can use either its [minified](http://dashif.org/reference/players/javascript/v2.1.1/dash.js/dist/dash.all.min.js) or [debug](http://dashif.org/reference/players/javascript/v2.1.1/dash.js/dist/dash.all.debug.js) version.
 
-<!-- videojs-contrib-dash script -->
-<script src="videojs-dash.min.js"></script>
+To enable a graphic visualization of P2P traffic (as a debug tool), you can add following lines to your page. Note that in this case, `p2pConfig` must include `debug: true` as described [here](https://streamroot.readme.io/docs/p2p-config) :
 
-<script>
-var player = videojs('example-video');
-player.play();
-</script>
+```javascript
+<script src="http://cdn.streamroot.io/2/scripts/p2pGraph.js"></script>
+<script src="http://cdn.streamroot.io/2/scripts/peerStat.js"></script>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.min.js"> </script>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.min.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.9/d3.min.js"> </script>
 ```
 
-Checkout our [live example](http://videojs.github.io/videojs-contrib-dash/) if you're having trouble.
+Putting it all together:
+```html
+<html>
+<head>
+  <!-- dash.js -->
+  <script src="http://dashif.org/reference/players/javascript/2.1.1/dash.js/dist/dash.all.debug.js"></script>
+
+  <!-- video.js -->
+  <link href="//vjs.zencdn.net/5.8/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/5.8/video.min.js"></script>
+
+  <!-- videojs-contrib-dash script -->
+  <script src="dist/videojs-dash.js"></script>
+
+  <!-- p2p graphics and peer stats -->
+  <script src="http://cdn.streamroot.io/2/scripts/p2pGraph.js"></script>
+  <script src="http://cdn.streamroot.io/2/scripts/peerStat.js"></script>
+  <!-- graphics dependencies -->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.min.js"> </script>
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.min.css">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.9/d3.min.js"> </script>
+</head>
+<body>
+  <div>
+      <video id="video_element" width="480" height="360" controls muted class="video-js vjs-default-skin" />
+  </div>
+
+  <script>
+
+    var options = {
+        html5: {
+            dash: {
+              limitBitrateByPortal: true
+            },
+            streamroot: {
+                p2pConfig: {
+                    streamrootKey: "YOUR_STREAMROOTKEY_HERE",
+                    debug: true
+                }
+            }
+        }
+    };
+
+    var player = videojs('video_element', options);
+    player.ready(function() {
+      player.src({
+        src: 'http://dash.edgesuite.net/envivio/EnvivioDash3/manifest.mpd',
+        type: 'application/dash+xml'
+      });
+    });
+  </script>
+</body>
+</html>
+```
+
+## Example
+
+Checkout [live example here](http://streamroot.github.io/videojs5-dashjs-p2p-source-handler/).
+
+You can select a sample MPD using combox above the video. You can also pass an arbitary manifest url to the test page as a get param like this: `http://streamroot.github.io/videojs5-dashjs-p2p-source-handler/?mpd=encodeURIComponent_manifest_url_here`. Don't forget to `encodeURIComponent` it first.
+
+Below the video you can see p2p statistics & graphs.
+For a quick p2p test you can open several tabs with the same manifest and start playback. After a while you should see p2p traffic on the graphs.
+
+## How it works
+
+[streamroot-dashjs-p2p-wrapper](https://github.com/streamroot/dashjs-p2p-wrapper) is added as a dependency into `package.json`
+
+```json
+  ...
+  "dependencies": {
+    "dashjs": "Dash-Industry-Forum/dash.js#v2.1.1",
+    "global": "^4.3.0",
+    "video.js": "^5.0.0",
+    "streamroot-dashjs-p2p-wrapper": "^1.2.0"
+  }
+  ...
+```
+
+Wrapper is imported in [dash.js source handler](https://github.com/streamroot/videojs5-dashjs-p2p-source-handler/blob/master/src/js/videojs-dash.js):
+
+```javascript
+import DashjsWrapper from 'streamroot-dashjs-p2p-wrapper';
+```
+
+and instantiated after `dashjs.MediaPlayer` is created. `dashjs.MediaPlayer` instance, p2p config and live delay value are passed as parameters to wrapper constructor:
+
+```javascript
+if (options && options.streamroot && options.streamroot.p2pConfig) {
+  var liveDelay = 30;
+  this.dashjsWrapper_ = new DashjsWrapper(
+    this.mediaPlayer_,
+    options.streamroot.p2pConfig,
+    liveDelay
+  );
+}
+```
+
+p2pConfig is described [here](https://streamroot.readme.io/docs/p2p-config). Check it to get better understanding on what can be configured.
+You can get your `streamrootKey` by signing up into [Streamroot's dashboard](http://dashboard.streamroot.io/signup).
 
 ## Protected Content
 
@@ -51,54 +145,4 @@ player.src({
     }
   ]
 });
-```
-
-You may also manipulate the source object by setting the `videojs.Html5DashJS.updateSourceData` function. This function takes a source object as an argument and should return a source object.
-
-```javascript
-videojs.Html5DashJS.updateSourceData = function(source) {
-  source.keySystemOptions = [{
-    name: 'com.widevine.alpha',
-    options: {
-      serverURL:'https://example.com/anotherlicense'
-    }
-  }];
-  return source;
-};
-```
-
-## Passing options to Dash.js
-
-It is possible to pass options to Dash.js during initialiation of video.js. The following options are currently supported:
-
-* `limitBitrateByPortal` (defaults to `false`): if set to `true`, Dash.js will not request video tracks which are bigger than the video element.
-
-To set these options, pass them in the `html5.dash` object of video.js during initialization.
-
-For example:
-
-```javascript
-var player = videojs('example-video', {
-  html5: {
-    dash: {
-      limitBitrateByPortal: true
-    }
-  }
-});
-```
-
-## Before Initialize Hook
-
-Sometimes you may need to extend Dash.js, or have access to the Dash.js MediaPlayer before it is initialized. For these cases we have a beforeInitialize hook. The method is passed the Video.js player instance and the instance of Dash.js' MediaPlayer we are using, before the media player is initialized.
-
-```javascript
-videojs.Html5DashJS.beforeInitialize = function(player, mediaPlayer) {
-  // Log MediaPlayer messages through video.js
-  if (videojs && videojs.log) {
-    mediaPlayer.getDebug().setLogToBrowserConsole(false);
-    mediaPlayer.on('log', function(event) {
-      videojs.log(event.message);
-    });
-  }
-};
 ```

@@ -15,6 +15,5 @@
   "esnext": true,
   "nonew": true,
   "quotmark": "single",
-  "trailing": true,
-  "maxlen": 100
+  "trailing": true
 }

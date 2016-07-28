@@ -9,6 +9,14 @@
 
   <link rel="stylesheet" href="node_modules/video.js/dist/video-js.css">
   <script src="node_modules/video.js/dist/ie8/videojs-ie8.js"></script>
+
+  <!-- p2p graphs -->
+  <script src="http://cdn.streamroot.io/2/scripts/p2pGraph.js"></script>
+  <script src="http://cdn.streamroot.io/2/scripts/peerStat.js"></script>
+  <!-- graphics dependencies -->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.min.js"> </script>
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.min.css">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.9/d3.min.js"> </script>
 </head>
 
 <body>
@@ -34,6 +42,12 @@
       html5: {
         dash: {
           limitBitrateByPortal: true
+        },
+        streamroot: {
+          p2pConfig: {
+            streamrootKey: "a913c6b8-5037-4ed8-9c94-918f70c40320",
+            debug: true
+          }
         }
       }
     });

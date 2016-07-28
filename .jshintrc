@@ -11,9 +11,7 @@
   "boss": true,
   "eqnull": true,
   "node": true,
-
   "nonew": true,
   "quotmark": "single",
-  "trailing": true,
-  "maxlen": 100
+  "trailing": true
 }
