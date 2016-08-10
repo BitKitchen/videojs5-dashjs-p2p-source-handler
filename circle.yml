@@ -17,6 +17,8 @@ dependencies:
         - toolkit/set_dependency_version.rb --exclude_branches master
                                             --dependency_path dependencies.streamroot-dashjs-p2p-wrapper
                                             --version beta
+
+        - npm install -g grunt-cli
         - npm prune
 
     override:
