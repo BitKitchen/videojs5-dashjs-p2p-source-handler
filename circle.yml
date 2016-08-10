@@ -29,7 +29,7 @@ dependencies:
 
 test:
     override:
-      - grunt test
+      - grunt jshint
 
 deployment:
     features:
@@ -37,6 +37,7 @@ deployment:
         commands:
             # Generate dist
             - grunt build
+            - grunt test
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
                                     --deploy_env $CIRCLE_BRANCH
