@@ -10,10 +10,6 @@
   "author": {
     "name": "Brightcove"
   },
-  "scripts": {
-    "test": "grunt",
-    "prepublish": "grunt build"
-  },
   "keywords": [
     "videojs",
     "dashjs",

@@ -26,14 +26,14 @@ dependencies:
 
 test:
     override:
-      - echo "WARNING: Original videojs-contrib-dash tests are failing for some reason. This is a temporary stub!"
+      - grunt test
 
 deployment:
     features:
         branch: /^(?!(?:dev|master)$).+$/
         commands:
             # Generate dist
-            - npm run build
+            - grunt build
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
                                     --deploy_env $CIRCLE_BRANCH
@@ -59,7 +59,7 @@ deployment:
             - toolkit/set_version.rb --version $(toolkit/current_version.rb --beta ${CIRCLE_BUILD_NUM})
 
             # Generate dist
-            - npm run build
+            - grunt build
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
                                     --dependencies streamroot-dashjs-p2p-wrapper
@@ -110,7 +110,7 @@ deployment:
 #            - rm -rf dist
 #
 #            # Generate dist
-#            - npm run build
+#            - grunt build
 #
 #            - toolkit/add_banner.rb --file dist/$DIST_FILE
 #                                    --dependencies streamroot-dashjs-p2p-wrapper
