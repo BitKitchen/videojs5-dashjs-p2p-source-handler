@@ -18,9 +18,9 @@ module.exports = function(config) {
 
     browserDisconnectTolerance: 3,
 
-    captureTimeout: 300000,
+    captureTimeout: 15000,
 
-    browserNoActivityTimeout: 300000,
+    browserNoActivityTimeout: 30000,
 
     browsers: process.env.TRAVIS ? ['travisChrome'] : ['Chrome', 'Firefox'],
 
