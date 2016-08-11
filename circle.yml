@@ -64,6 +64,7 @@ deployment:
 
             # Generate dist
             - grunt build
+            - grunt test
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
                                     --dependencies streamroot-dashjs-p2p-wrapper
@@ -115,6 +116,7 @@ deployment:
 #
 #            # Generate dist
 #            - grunt build
+#            - grunt test
 #
 #            - toolkit/add_banner.rb --file dist/$DIST_FILE
 #                                    --dependencies streamroot-dashjs-p2p-wrapper
