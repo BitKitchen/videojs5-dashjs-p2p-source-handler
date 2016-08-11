@@ -1,18 +1,14 @@
 {
-  "name": "videojs-contrib-dash",
-  "description": "A Video.js source-handler providing MPEG-DASH playback.",
+  "name": "videojs5-dashjs-p2p-source-handler",
+  "description": "A Video.js source-handler providing MPEG-DASH playback with Streamroot P2P module",
   "main": "es5/src/js/videojs-dash.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/videojs/videojs-contrib-dash.git"
+    "url": "https://github.com/streamroot/videojs5-dashjs-p2p-source-handler"
   },
-  "version": "2.4.0",
+  "version": "1.0.0-beta.0",
   "author": {
-    "name": "Brightcove"
-  },
-  "scripts": {
-    "test": "grunt",
-    "prepublish": "grunt build"
+    "name": "Streamroot"
   },
   "keywords": [
     "videojs",

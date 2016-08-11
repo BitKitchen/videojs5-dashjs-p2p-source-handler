@@ -6,7 +6,7 @@ module.exports = function(config) {
       'node_modules/video.js/dist/video-js.css',
       'node_modules/video.js/dist/video.js',
       'node_modules/dashjs/dist/dash.all.debug.js',
-      'dist/videojs-dash.js',
+      'dist/vjs5-dashjs-source-handler.js',
       'test/integration.test.js',
       'test/globals.test.js',
       'test/dashjs.test.js'
@@ -18,9 +18,9 @@ module.exports = function(config) {
 
     browserDisconnectTolerance: 3,
 
-    captureTimeout: 300000,
+    captureTimeout: 15000,
 
-    browserNoActivityTimeout: 300000,
+    browserNoActivityTimeout: 30000,
 
     browsers: process.env.TRAVIS ? ['travisChrome'] : ['Chrome', 'Firefox'],
 

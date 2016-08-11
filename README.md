@@ -35,7 +35,7 @@ Putting it all together:
   <script src="//vjs.zencdn.net/5.8/video.min.js"></script>
 
   <!-- videojs-contrib-dash script -->
-  <script src="dist/videojs-dash.js"></script>
+  <script src="dist/vjs5-dashjs-source-handler.js"></script>
 
   <!-- p2p graphics and peer stats -->
   <script src="http://cdn.streamroot.io/2/scripts/p2pGraph.js"></script>
@@ -94,7 +94,7 @@ For a quick p2p test you can open several tabs with the same manifest and start 
 ```json
   ...
   "dependencies": {
-    "dashjs": "Dash-Industry-Forum/dash.js#v2.1.1",
+    "dashjs": "2.1.1",
     "global": "^4.3.0",
     "video.js": "^5.0.0",
     "streamroot-dashjs-p2p-wrapper": "^1.2.0"
