@@ -7,5 +7,6 @@ This changelog's template come from [keepachangelog.com](http://keepachangelog.c
 
 ## [Unreleased]
 ## [1.0.0] - 2016-08-12
-- added CircleCI integration
+### Added
+- CircleCI integration
 
