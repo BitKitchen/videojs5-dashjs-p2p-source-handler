@@ -34,7 +34,7 @@ module.exports = function(grunt) {
     browserify: {
       dist: {
         files: {
-          'tmp/vjs5-dashjs-source-handler.js': ['src/js/videojs-dash.js']
+          'tmp/videojs5-dashjs-p2p-source-handler.js': ['src/js/videojs-dash.js']
         },
         options: {
           transform: [
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
     },
     shell: {
         uglifyjs: {
-            command: 'node_modules/uglifyjs/bin/uglifyjs tmp/vjs5-dashjs-source-handler.js > tmp/vjs5-dashjs-source-handler.min.js',
+            command: 'node_modules/uglifyjs/bin/uglifyjs tmp/videojs5-dashjs-p2p-source-handler.js > tmp/videojs5-dashjs-p2p-source-handler.min.js',
         }
     },
     concat: {
@@ -70,9 +70,9 @@ module.exports = function(grunt) {
       },
       dist: {
         src: [
-          'tmp/vjs5-dashjs-source-handler.js'
+          'tmp/videojs5-dashjs-p2p-source-handler.js'
         ],
-        dest: 'dist/vjs5-dashjs-source-handler.js'
+        dest: 'dist/videojs5-dashjs-p2p-source-handler.js'
       }
     },
     karma: {

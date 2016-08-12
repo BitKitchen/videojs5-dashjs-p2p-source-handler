@@ -128,10 +128,10 @@ deployment:
             - toolkit/upload_to_s3.rb --bucket $S3_PREPROD_BUCKET
                                       --region eu-west-1
                                       --file $CIRCLE_ARTIFACTS/$DIST_FILE
-                                      --destinations $CIRCLE_PROJECT_REPONAME/$(toolkit/current_version.rb --major)/$DIST_FILE
-                                                     $CIRCLE_PROJECT_REPONAME/$(toolkit/current_version.rb --no_patch)/$DIST_FILE
-                                                     $CIRCLE_PROJECT_REPONAME/$(toolkit/current_version.rb)/$DIST_FILE
-                                                     $CIRCLE_PROJECT_REPONAME/latest/$DIST_FILE
+                                      --destinations videojs5-dashjs-source-handler/$(toolkit/current_version.rb --major)/videojs5-dashjs-source-handler.js
+                                                     videojs5-dashjs-source-handler/$(toolkit/current_version.rb --no_patch)/videojs5-dashjs-source-handler.js
+                                                     videojs5-dashjs-source-handler/$(toolkit/current_version.rb)/videojs5-dashjs-source-handler.js
+                                                     videojs5-dashjs-source-handler/latest/videojs5-dashjs-source-handler.js
                                       --key $S3_KEY
                                       --secret $S3_SECRET
 
@@ -143,3 +143,4 @@ deployment:
                                           --slack-token $SLACK_TOKEN
                                           --username $POST_USERNAME
                                           --icon-url $POST_PICTURE
+
