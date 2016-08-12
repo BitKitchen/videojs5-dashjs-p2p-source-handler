@@ -6,6 +6,9 @@ This changelog's template come from [keepachangelog.com](http://keepachangelog.c
 ## [Dev]
 
 ## [Unreleased]
+### Changed
+- dist name to `videojs5-dashjs-p2p-source-handler.js`
+
 ## [1.0.0] - 2016-08-12
 ### Added
 - CircleCI integration
