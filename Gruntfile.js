@@ -44,6 +44,24 @@ module.exports = function(grunt) {
             'browserify-shim'
           ]
         }
+      },
+      watch: {
+        files: {
+          'dist/videojs5-dashjs-p2p-source-handler.debug.js': ['src/js/videojs-dash.js']
+        },
+        options: {
+          transform: [
+            ['babelify', {
+              loose: 'all'
+            }],
+            'browserify-shim'
+          ],
+          browserifyOptions: {
+              debug: true
+          },
+          watch: true,
+          keepAlive: true
+        }
       }
     },
     babel: {
@@ -87,6 +105,7 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.registerTask('test', 'karma');
-  grunt.registerTask('build', ['clean', 'jshint', 'browserify', 'babel', 'shell:uglifyjs', 'concat']);
+  grunt.registerTask('build', ['clean', 'jshint', 'browserify:dist', 'babel:dist', 'shell:uglifyjs', 'concat']);
   grunt.registerTask('default', ['build', 'test']);
+  grunt.registerTask('watch', ['browserify:watch']);
 };
