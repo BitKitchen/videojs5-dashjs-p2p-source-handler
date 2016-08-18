@@ -98,6 +98,7 @@ deployment:
             - toolkit/update_version.rb
 
             # Changelog
+            - toolkit/update_changelog_with_parent_dep.rb --module-name $TRIGGERED_FROM_MODULE
             - toolkit/bump_current_changelog.rb --version $(toolkit/current_version.rb)
 
             # Keep dev up to date
