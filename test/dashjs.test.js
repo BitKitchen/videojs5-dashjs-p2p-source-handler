@@ -49,8 +49,8 @@
         origVJSXHR = videojs.xhr,
         origResetSrc = videojs.Html5DashJS.prototype.resetSrc_;
 
-      expect(7);
-      
+      expect(6);
+
       // Default limitBitrateByPortal to false
       limitBitrateByPortal = limitBitrateByPortal || false;
 
@@ -83,9 +83,6 @@
 
               attachView: function () {
                 attachViewCalled = true;
-              },
-              setAutoPlay: function (autoplay) {
-                strictEqual(autoplay, false, 'autoplay is set to false by default');
               },
               setProtectionData: function (keySystemOptions) {
                 deepEqual(keySystemOptions, expectedKeySystemOptions,

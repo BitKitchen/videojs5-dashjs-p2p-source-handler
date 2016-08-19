@@ -93,9 +93,6 @@ class Html5DashJS {
 
     this.mediaPlayer_.attachView(this.el_);
 
-    // Dash.js autoplays by default, video.js will handle autoplay
-    this.mediaPlayer_.setAutoPlay(false);
-
     this.tech_.triggerReady();
   }
 
