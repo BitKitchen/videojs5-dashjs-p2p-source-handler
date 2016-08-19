@@ -39,7 +39,21 @@ class Html5DashJS {
     }
 
     let manifestSource = source.src;
-    this.keySystemOptions_ = Html5DashJS.buildDashJSProtData(source.keySystemOptions);
+    let keySystemOptions = Html5DashJS.buildDashJSProtData(source.keySystemOptions);
+
+    let onVideoPlay = (event) => {
+      event.currentTarget.removeEventListener(event.type, onVideoPlay);
+
+      // this fixes an exception in Chrome -- VideoModel.js:88 Uncaught (in promise)
+      // DOMException: The play() request was interrupted by a new load request.
+      event.currentTarget.pause();
+      event.currentTarget.load();
+
+      // Attach the source with any protection data
+      this.mediaPlayer_.setProtectionData(keySystemOptions);
+      this.mediaPlayer_.attachSource(manifestSource);
+    };
+    this.el_.addEventListener('play', onVideoPlay);
 
     // Save the context after the first initialization for subsequent instances
     Html5DashJS.context_ = Html5DashJS.context_ || {};
@@ -81,10 +95,6 @@ class Html5DashJS {
 
     // Dash.js autoplays by default, video.js will handle autoplay
     this.mediaPlayer_.setAutoPlay(false);
-
-    // Attach the source with any protection data
-    this.mediaPlayer_.setProtectionData(this.keySystemOptions_);
-    this.mediaPlayer_.attachSource(manifestSource);
 
     this.tech_.triggerReady();
   }

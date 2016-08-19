@@ -38,6 +38,8 @@
           src: 'http://dash.edgesuite.net/envivio/EnvivioDash3/manifest.mpd',
           type: 'application/dash+xml'
         });
+
+        player.play();
       });
     },
     afterEach: function() {
@@ -75,7 +77,5 @@
     }, function() {
       return player.currentTime() >= 2;
     });
-
-    player.play();
   });
 })(window.videojs, window.QUnit);

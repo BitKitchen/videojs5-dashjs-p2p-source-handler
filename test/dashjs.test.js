@@ -55,6 +55,7 @@
       limitBitrateByPortal = limitBitrateByPortal || false;
 
       el.setAttribute('id', 'test-vid');
+      el.pause = el.load = function() {};
       parentEl.appendChild(el);
       document.body.appendChild(parentEl);
 
@@ -125,6 +126,8 @@
 
       var dashSourceHandler = Html5.selectSourceHandler(source);
       dashSourceHandler.handleSource(source, tech, options);
+
+      el.dispatchEvent(new Event('play'));
     };
 
   qunit.module('videojs-dash dash.js SourceHandler', {
