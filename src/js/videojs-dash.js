@@ -1,7 +1,6 @@
 import window from 'global/window';
 import videojs from 'video.js';
-import dashjs from 'dashjs';
-import DashjsWrapper from 'streamroot-dashjs-p2p-wrapper';
+import DashjsP2PBundle from 'streamroot-dashjs-p2p-bundle';
 
 let
   isArray = function(a) {
@@ -60,13 +59,12 @@ class Html5DashJS {
 
     // reuse MediaPlayer if it already exists
     if (!this.mediaPlayer_) {
-      this.mediaPlayer_ = dashjs.MediaPlayer(Html5DashJS.context_).create();
-
-      // initializing streamroot-dashjs-p2p-wrapper
-      if (options && options.streamroot && options.streamroot.p2pConfig) {
-        let liveDelay = 30;
-        this.dashjsWrapper_ = new DashjsWrapper(this.mediaPlayer_, options.streamroot.p2pConfig, liveDelay);
+      if (!options || !options.streamroot || !options.streamroot.p2pConfig) {
+        throw new Error('p2pConfig is not defined!');
       }
+
+      // initializing streamroot-p2p-bundle
+      this.mediaPlayer_ = DashjsP2PBundle.MediaPlayer(Html5DashJS.context_).create(options.streamroot.p2pConfig);
     }
 
     // Log MedaPlayer messages through video.js
