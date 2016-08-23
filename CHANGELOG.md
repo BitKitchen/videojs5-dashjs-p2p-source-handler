@@ -7,6 +7,12 @@ This changelog's template come from [keepachangelog.com](http://keepachangelog.c
 ### Added
 - Browserify watch task to Gruntfile
 
+### Changed
+- Speed up tests by decreasing browser no activity timeout and allowed reconnections number
+
+### Fixed
+- Disabled segment prefetching
+
 ## [Unreleased]
 
 ## [1.0.2] - 2016-08-12

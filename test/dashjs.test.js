@@ -49,12 +49,13 @@
         origVJSXHR = videojs.xhr,
         origResetSrc = videojs.Html5DashJS.prototype.resetSrc_;
 
-      expect(7);
-      
+      expect(6);
+
       // Default limitBitrateByPortal to false
       limitBitrateByPortal = limitBitrateByPortal || false;
 
       el.setAttribute('id', 'test-vid');
+      el.pause = el.load = function() {};
       parentEl.appendChild(el);
       document.body.appendChild(parentEl);
 
@@ -82,9 +83,6 @@
 
               attachView: function () {
                 attachViewCalled = true;
-              },
-              setAutoPlay: function (autoplay) {
-                strictEqual(autoplay, false, 'autoplay is set to false by default');
               },
               setProtectionData: function (keySystemOptions) {
                 deepEqual(keySystemOptions, expectedKeySystemOptions,
@@ -125,6 +123,8 @@
 
       var dashSourceHandler = Html5.selectSourceHandler(source);
       dashSourceHandler.handleSource(source, tech, options);
+
+      el.dispatchEvent(new Event('play'));
     };
 
   qunit.module('videojs-dash dash.js SourceHandler', {

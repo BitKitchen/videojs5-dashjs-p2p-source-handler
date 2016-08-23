@@ -25,6 +25,7 @@
       videoEl.setAttribute('controls', '');
       videoEl.setAttribute('width', '600');
       videoEl.setAttribute('height', '300');
+      videoEl.setAttribute('muted', '');
       videoEl.className = 'video-js vjs-default-skin';
       this.fixture.appendChild(videoEl);
 
@@ -38,6 +39,8 @@
           src: 'http://dash.edgesuite.net/envivio/EnvivioDash3/manifest.mpd',
           type: 'application/dash+xml'
         });
+
+        player.play();
       });
     },
     afterEach: function() {
@@ -75,7 +78,5 @@
     }, function() {
       return player.currentTime() >= 2;
     });
-
-    player.play();
   });
 })(window.videojs, window.QUnit);
