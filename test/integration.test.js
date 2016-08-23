@@ -48,7 +48,7 @@
         player.one('loadstart', done);
 
         player.src({
-          src: 'http://dash.edgesuite.net/envivio/EnvivioDash3/manifest.mpd',
+          src: 'http://wowza-test.streamroot.io/vodOrigin/tos.smil/manifest.mpd',
           type: 'application/dash+xml'
         });
 
