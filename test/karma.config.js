@@ -5,7 +5,6 @@ module.exports = function(config) {
     files: [
       'node_modules/video.js/dist/video-js.css',
       'node_modules/video.js/dist/video.js',
-      'node_modules/dashjs/dist/dash.all.debug.js',
       'dist/videojs5-dashjs-p2p-source-handler.js',
       'test/integration.test.js',
       'test/globals.test.js',

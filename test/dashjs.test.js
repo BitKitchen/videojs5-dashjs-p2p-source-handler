@@ -67,6 +67,12 @@
         playerId: el.getAttribute('id'),
         dash: {
           limitBitrateByPortal: limitBitrateByPortal
+        },
+        streamroot: {
+          p2pConfig: {
+            streamrootKey: 'key',
+            debug: true
+          }
         }
       };
       tech.el = function() { return el; };
@@ -77,8 +83,12 @@
         return {
           create: function () {
             return {
+              extend: function() {
+              },
               initialize: function () {
                 startupCalled = true;
+              },
+              on: function() {
               },
 
               attachView: function () {
@@ -109,6 +119,8 @@
               setLimitBitrateByPortal: function (value) {
                 setLimitBitrateByPortalCalled = true;
                 setLimitBitrateByPortalValue = value;
+              },
+              setLiveDelay: function () {
               }
             };
           }

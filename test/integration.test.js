@@ -29,7 +29,19 @@
       videoEl.className = 'video-js vjs-default-skin';
       this.fixture.appendChild(videoEl);
 
-      player = videojs('vid');
+      player = videojs('vid', {
+        html5: {
+          dash: {
+            limitBitrateByPortal: true
+          },
+          streamroot: {
+            p2pConfig: {
+              streamrootKey: 'key',
+              debug: true
+            }
+          }
+        }
+      });
       this.player = player;
 
       player.ready(function() {
