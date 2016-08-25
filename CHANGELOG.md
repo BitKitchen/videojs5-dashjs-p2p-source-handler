@@ -9,6 +9,7 @@ This changelog's template come from [keepachangelog.com](http://keepachangelog.c
 
 ### Changed
 - Speed up tests by decreasing browser no activity timeout and allowed reconnections number
+- streamroot-dashjs-p2p-wrapper replaced by streamroot-dashjs-p2p-bundle
 
 ### Fixed
 - Disabled segment prefetching
