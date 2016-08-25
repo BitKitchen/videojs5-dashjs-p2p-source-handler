@@ -67,6 +67,10 @@ class Html5DashJS {
       this.mediaPlayer_ = DashjsP2PBundle.MediaPlayer(Html5DashJS.context_).create(options.streamroot.p2pConfig);
     }
 
+    this.mediaPlayer_.on('manifestloaded', ({data}) => {
+      this._duration = data.type === 'static' ? data.mediaPresentationDuration : Infinity;
+    });
+
     // Log MedaPlayer messages through video.js
     if (Html5DashJS.useVideoJSDebug) {
       videojs.log.warn('useVideoJSDebug has been deprecated.' +
@@ -92,6 +96,10 @@ class Html5DashJS {
     this.mediaPlayer_.attachView(this.el_);
 
     this.tech_.triggerReady();
+  }
+
+  duration() {
+    return this._duration || this.el_.duration || 0;
   }
 
   /*
