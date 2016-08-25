@@ -13,6 +13,7 @@ This changelog's template come from [keepachangelog.com](http://keepachangelog.c
 
 ### Fixed
 - Disabled segment prefetching
+- Content duration display for live streams
 
 ## [Unreleased]
 
