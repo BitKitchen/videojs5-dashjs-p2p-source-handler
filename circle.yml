@@ -15,7 +15,7 @@ dependencies:
 
         # Set dashjs-p2p-wrapper version
         - toolkit/set_dependency_version.rb --exclude_branches master
-                                            --dependency_path dependencies.streamroot-dashjs-p2p-wrapper
+                                            --dependency_path dependencies.streamroot-dashjs-p2p-bundle
                                             --version beta
 
         - npm install -g grunt-cli
@@ -41,7 +41,7 @@ deployment:
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
                                     --deploy_env $CIRCLE_BRANCH
-                                    --dependencies streamroot-dashjs-p2p-wrapper
+                                    --dependencies streamroot-dashjs-p2p-bundle
 
             # Upload dist
             - cp dist/$DIST_FILE $CIRCLE_ARTIFACTS/$DIST_FILE
@@ -67,7 +67,7 @@ deployment:
             - grunt test
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
-                                    --dependencies streamroot-dashjs-p2p-wrapper
+                                    --dependencies streamroot-dashjs-p2p-bundle
                                     --deploy_env $CIRCLE_BRANCH
                                     --version $(toolkit/current_version.rb)
 
@@ -120,7 +120,7 @@ deployment:
             - grunt test
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
-                                    --dependencies streamroot-dashjs-p2p-wrapper
+                                    --dependencies streamroot-dashjs-p2p-bundle
                                     --version $(toolkit/current_version.rb)
 
             # Upload version
