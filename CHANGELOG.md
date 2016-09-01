@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This changelog's template come from [keepachangelog.com](http://keepachangelog.com/). When editing this document, please follow the convention specified there.
 
 ## [Dev]
+
+## [Unreleased]
+
+## [1.1.0] - 2016-09-01
 ### Added
 - Browserify watch task to Gruntfile
 
@@ -14,8 +18,6 @@ This changelog's template come from [keepachangelog.com](http://keepachangelog.c
 ### Fixed
 - Disabled segment prefetching
 - Content duration display for live streams
-
-## [Unreleased]
 
 ## [1.0.2] - 2016-08-12
 ### Changed
