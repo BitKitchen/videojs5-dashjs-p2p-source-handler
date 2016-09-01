@@ -25,19 +25,34 @@
       videoEl.setAttribute('controls', '');
       videoEl.setAttribute('width', '600');
       videoEl.setAttribute('height', '300');
+      videoEl.setAttribute('muted', '');
       videoEl.className = 'video-js vjs-default-skin';
       this.fixture.appendChild(videoEl);
 
-      player = videojs('vid');
+      player = videojs('vid', {
+        html5: {
+          dash: {
+            limitBitrateByPortal: true
+          },
+          streamroot: {
+            p2pConfig: {
+              streamrootKey: 'key',
+              debug: true
+            }
+          }
+        }
+      });
       this.player = player;
 
       player.ready(function() {
         player.one('loadstart', done);
 
         player.src({
-          src: 'http://dash.edgesuite.net/envivio/EnvivioDash3/manifest.mpd',
+          src: 'http://wowza-test.streamroot.io/vodOrigin/tos.smil/manifest.mpd',
           type: 'application/dash+xml'
         });
+
+        player.play();
       });
     },
     afterEach: function() {
@@ -75,7 +90,5 @@
     }, function() {
       return player.currentTime() >= 2;
     });
-
-    player.play();
   });
 })(window.videojs, window.QUnit);

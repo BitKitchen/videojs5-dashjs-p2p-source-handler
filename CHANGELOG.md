@@ -4,6 +4,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This changelog's template come from [keepachangelog.com](http://keepachangelog.com/). When editing this document, please follow the convention specified there.
 
 ## [Dev]
+### Added
+- Browserify watch task to Gruntfile
+
+### Changed
+- Speed up tests by decreasing browser no activity timeout and allowed reconnections number
+- streamroot-dashjs-p2p-wrapper replaced by streamroot-dashjs-p2p-bundle
+
+### Fixed
+- Disabled segment prefetching
+- Content duration display for live streams
 
 ## [Unreleased]
 

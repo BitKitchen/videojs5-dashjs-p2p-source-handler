@@ -4,13 +4,12 @@ A video.js source handler for supporting MPEG-DASH playback over P2P or CDN thro
 
 ## Getting started
 
-Run `npm install` to install necessary dependencies such as [streamroot-dashjs-p2p-wrapper](https://github.com/streamroot/dashjs-p2p-wrapper) and build the source handler. Build is triggered automatically after `npm install`.
-
+Run `npm install` to install necessary dependencies such as [streamroot-dashjs-p2p-bundle](https://github.com/streamroot/dashjs-p2p-wrapper) and build the source handler. Build is triggered automatically after `npm install`.
 You can also use `grunt build` to build the files after a manual update.
 
 The built files will be placed into `dist` directory.
 
-In addition to built files, you'll need to include [video.js 5.0+](http://videojs.com/getting-started/) and `dash.js` v2.1.1+ in your web page. For `dash.js` you can use either its [minified](http://dashif.org/reference/players/javascript/v2.1.1/dash.js/dist/dash.all.min.js) or [debug](http://dashif.org/reference/players/javascript/v2.1.1/dash.js/dist/dash.all.debug.js) version.
+In addition to built files, you'll need to include [video.js 5.0+](http://videojs.com/getting-started/) in your web page.
 
 To enable a graphic visualization of P2P traffic (as a debug tool), you can add following lines to your page. Note that in this case, `p2pConfig` must include `debug: true` as described [here](https://streamroot.readme.io/docs/p2p-config) :
 
@@ -27,15 +26,13 @@ Putting it all together:
 ```html
 <html>
 <head>
-  <!-- dash.js -->
-  <script src="http://dashif.org/reference/players/javascript/2.1.1/dash.js/dist/dash.all.debug.js"></script>
 
   <!-- video.js -->
   <link href="//vjs.zencdn.net/5.8/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/5.8/video.min.js"></script>
 
   <!-- videojs-contrib-dash script -->
-  <script src="dist/vjs5-dashjs-source-handler.js"></script>
+  <script src="dist/videojs5-dashjs-p2p-source-handler.js"></script>
 
   <!-- p2p graphics and peer stats -->
   <script src="http://cdn.streamroot.io/2/scripts/p2pGraph.js"></script>
@@ -89,36 +86,33 @@ For a quick p2p test you can open several tabs with the same manifest and start 
 
 ## How it works
 
-[streamroot-dashjs-p2p-wrapper](https://github.com/streamroot/dashjs-p2p-wrapper) is added as a dependency into `package.json`
+[streamroot-dashjs-p2p-bundle](https://github.com/streamroot/dashjs-p2p-wrapper) is added as a dependency into `package.json`
 
 ```json
   ...
   "dependencies": {
-    "dashjs": "2.1.1",
     "global": "^4.3.0",
     "video.js": "^5.0.0",
-    "streamroot-dashjs-p2p-wrapper": "^1.2.0"
+    "streamroot-dashjs-p2p-bundle": "^1.5.0"
   }
   ...
 ```
 
-Wrapper is imported in [dash.js source handler](https://github.com/streamroot/videojs5-dashjs-p2p-source-handler/blob/master/src/js/videojs-dash.js):
+and is imported in [dash.js source handler](https://github.com/streamroot/videojs5-dashjs-p2p-source-handler/blob/master/src/js/videojs-dash.js):
 
 ```javascript
-import DashjsWrapper from 'streamroot-dashjs-p2p-wrapper';
+import DashjsP2PBundle from 'streamroot-dashjs-p2p-bundle';
 ```
 
-and instantiated after `dashjs.MediaPlayer` is created. `dashjs.MediaPlayer` instance, p2p config and live delay value are passed as parameters to wrapper constructor:
+and instantiated if `p2pConfig` is defined:
 
 ```javascript
-if (options && options.streamroot && options.streamroot.p2pConfig) {
-  var liveDelay = 30;
-  this.dashjsWrapper_ = new DashjsWrapper(
-    this.mediaPlayer_,
-    options.streamroot.p2pConfig,
-    liveDelay
-  );
+if (!options || !options.streamroot || !options.streamroot.p2pConfig) {
+  throw new Error('p2pConfig is not defined!');
 }
+
+// initializing streamroot-p2p-bundle
+this.mediaPlayer_ = DashjsP2PBundle.MediaPlayer(Html5DashJS.context_).create(options.streamroot.p2pConfig);
 ```
 
 p2pConfig is described [here](https://streamroot.readme.io/docs/p2p-config). Check it to get better understanding on what can be configured.

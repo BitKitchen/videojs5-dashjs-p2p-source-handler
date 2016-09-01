@@ -35,7 +35,8 @@
     "it",
     "browser",
     "Dash",
-    "MediaPlayer"
+    "MediaPlayer",
+    "Event"
   ],
   "nonew": true,
   "quotmark": "single",

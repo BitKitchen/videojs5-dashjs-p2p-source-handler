@@ -1,7 +1,6 @@
 import window from 'global/window';
 import videojs from 'video.js';
-import dashjs from 'dashjs';
-import DashjsWrapper from 'streamroot-dashjs-p2p-wrapper';
+import DashjsP2PBundle from 'streamroot-dashjs-p2p-bundle';
 
 let
   isArray = function(a) {
@@ -39,21 +38,38 @@ class Html5DashJS {
     }
 
     let manifestSource = source.src;
-    this.keySystemOptions_ = Html5DashJS.buildDashJSProtData(source.keySystemOptions);
+    let keySystemOptions = Html5DashJS.buildDashJSProtData(source.keySystemOptions);
+
+    let onVideoPlay = (event) => {
+      event.currentTarget.removeEventListener(event.type, onVideoPlay);
+
+      // this fixes an exception in Chrome -- VideoModel.js:88 Uncaught (in promise)
+      // DOMException: The play() request was interrupted by a new load request.
+      event.currentTarget.pause();
+      event.currentTarget.load();
+
+      // Attach the source with any protection data
+      this.mediaPlayer_.setProtectionData(keySystemOptions);
+      this.mediaPlayer_.attachSource(manifestSource);
+    };
+    this.el_.addEventListener('play', onVideoPlay);
 
     // Save the context after the first initialization for subsequent instances
     Html5DashJS.context_ = Html5DashJS.context_ || {};
 
     // reuse MediaPlayer if it already exists
     if (!this.mediaPlayer_) {
-      this.mediaPlayer_ = dashjs.MediaPlayer(Html5DashJS.context_).create();
-
-      // initializing streamroot-dashjs-p2p-wrapper
-      if (options && options.streamroot && options.streamroot.p2pConfig) {
-        let liveDelay = 30;
-        this.dashjsWrapper_ = new DashjsWrapper(this.mediaPlayer_, options.streamroot.p2pConfig, liveDelay);
+      if (!options || !options.streamroot || !options.streamroot.p2pConfig) {
+        throw new Error('p2pConfig is not defined!');
       }
+
+      // initializing streamroot-p2p-bundle
+      this.mediaPlayer_ = DashjsP2PBundle.MediaPlayer(Html5DashJS.context_).create(options.streamroot.p2pConfig);
     }
+
+    this.mediaPlayer_.on('manifestloaded', ({data}) => {
+      this._duration = data.type === 'static' ? data.mediaPresentationDuration : Infinity;
+    });
 
     // Log MedaPlayer messages through video.js
     if (Html5DashJS.useVideoJSDebug) {
@@ -79,14 +95,11 @@ class Html5DashJS {
 
     this.mediaPlayer_.attachView(this.el_);
 
-    // Dash.js autoplays by default, video.js will handle autoplay
-    this.mediaPlayer_.setAutoPlay(false);
-
-    // Attach the source with any protection data
-    this.mediaPlayer_.setProtectionData(this.keySystemOptions_);
-    this.mediaPlayer_.attachSource(manifestSource);
-
     this.tech_.triggerReady();
+  }
+
+  duration() {
+    return this._duration || this.el_.duration || 0;
   }
 
   /*
