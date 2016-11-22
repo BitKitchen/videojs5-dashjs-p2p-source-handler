@@ -9,7 +9,7 @@ You can also use `grunt build` to build the files after a manual update.
 
 The built files will be placed into `dist` directory.
 
-In addition to built files, you'll need to include [video.js 5.0+](http://videojs.com/getting-started/) in your web page.
+In addition to built files, you'll need to include [video.js 5.0+](http://videojs.com/getting-started/) in your web page(see [Known limitations](#known-limitations) section for more info).
 
 To enable a graphic visualization of P2P traffic (as a debug tool), you can add following lines to your page. Note that in this case, `p2pConfig` must include `debug: true` as described [here](https://streamroot.readme.io/docs/p2p-config) :
 
@@ -140,3 +140,42 @@ player.src({
   ]
 });
 ```
+
+## Known limitations
+
+Due to [known issue in video.js 5.10+](https://github.com/videojs/video.js/issues/3428), definining media source inside video tag is **NOT** supported for video.js 5.10+.
+So, if you want to set video source like this:
+
+```javascript
+<video class="video-js" id="video_element" width="600" height="300" controls>
+  <source src="http://dash.edgesuite.net/envivio/EnvivioDash3/manifest.mpd">
+</video>
+```
+
+You should use video.js version < 5.10:
+
+```html
+<html>
+<head>
+  <!-- video.js -->
+  <link href="//vjs.zencdn.net/5.9/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/5.9/video.min.js"></script>
+
+  <!-- videojs-contrib-dash script -->
+  <script src="dist/videojs5-dashjs-p2p-source-handler.js"></script>
+</head>
+```
+
+Or consider setting media source programmatically instead(works with any version of video.js starting 5.0+):
+
+```javascript
+var player = videojs('video_element', options);
+  player.ready(function() {
+    player.src({
+      src: 'http://dash.edgesuite.net/envivio/EnvivioDash3/manifest.mpd',
+      type: 'application/dash+xml'
+    });
+  });
+```
+
+You can check available video.js releases here https://github.com/videojs/video.js/releases.
