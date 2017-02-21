@@ -27,3 +27,4 @@ This changelog's template come from [keepachangelog.com](http://keepachangelog.c
 ### Added
 - CircleCI integration
 
+[1.1.30]: https://github.com/streamroot/videojs5-dashjs-p2p-source-handler/compare/v1.1.0...v1.1.30
