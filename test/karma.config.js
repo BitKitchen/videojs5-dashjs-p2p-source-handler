@@ -7,8 +7,7 @@ module.exports = function(config) {
       'node_modules/video.js/dist/video.js',
       'dist/videojs5-dashjs-p2p-source-handler.js',
       'test/integration.test.js',
-      'test/globals.test.js',
-      'test/dashjs.test.js'
+      'test/globals.test.js'
     ],
 
     frameworks: ['qunit'],
