@@ -2,6 +2,10 @@
   "name": "videojs5-dashjs-p2p-source-handler",
   "description": "A Video.js source-handler providing MPEG-DASH playback with Streamroot P2P module",
   "main": "es5/src/js/videojs-dash.js",
+  "license": {
+    "type": "Apache-2.0",
+    "url": "http://opensource.org/licenses/apache2.0.php"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/streamroot/videojs5-dashjs-p2p-source-handler"
