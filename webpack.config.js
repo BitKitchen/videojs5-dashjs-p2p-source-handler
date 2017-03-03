@@ -5,7 +5,8 @@ module.exports = {
     entry: './src/js/videojs-dash.js',
     output: {
         path: __dirname + '/dist',
-        filename: 'videojs5-dashjs-p2p-source-handler.js'
+        filename: 'videojs5-dashjs-p2p-source-handler.js',
+        libraryTarget: 'umd',
     },
     module: {
         loaders: [{
