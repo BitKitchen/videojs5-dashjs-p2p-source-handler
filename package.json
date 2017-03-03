@@ -20,6 +20,7 @@
     "build": "npm run clean && webpack --progress",
     "build:dev": "npm run clean && webpack --progress --watch",
     "dev": "webpack-dev-server -d",
+    "karma": "./node_modules/.bin/karma start test/karma.config.js --single-run"
   },
   "keywords": [
     "videojs",

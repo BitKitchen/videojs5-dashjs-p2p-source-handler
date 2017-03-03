@@ -36,6 +36,7 @@ deployment:
         commands:
             # Generate dist
             - npm run build
+            - npm run karma
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
                                     --deploy_env $CIRCLE_BRANCH
@@ -59,6 +60,7 @@ deployment:
 
             # Generate dist
             - npm run build
+            - npm run karma
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
                                     --dependencies streamroot-dashjs-p2p-bundle
@@ -108,6 +110,7 @@ deployment:
 
             # Generate dist
             - npm run build
+            - npm run karma
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
                                     --dependencies streamroot-dashjs-p2p-bundle
