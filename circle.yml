@@ -18,7 +18,6 @@ dependencies:
                                             --dependency_path dependencies.streamroot-dashjs-p2p-bundle
                                             --version beta
 
-        - npm install -g grunt-cli
         - npm prune
 
     override:
@@ -36,8 +35,7 @@ deployment:
         branch: /^(?!(?:dev|master)$).+$/
         commands:
             # Generate dist
-            - grunt build
-            - grunt test
+            - npm run build
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
                                     --deploy_env $CIRCLE_BRANCH
@@ -56,15 +54,11 @@ deployment:
     staging:
         branch: dev
         commands:
-            # Cleanup
-            - rm -rf dist
-
             # Set version
             - toolkit/set_version.rb --version $(toolkit/current_version.rb --beta ${CIRCLE_BUILD_NUM})
 
             # Generate dist
-            - grunt build
-            - grunt test
+            - npm run build
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
                                     --dependencies streamroot-dashjs-p2p-bundle
@@ -112,12 +106,8 @@ deployment:
                                         --post_username $POST_USERNAME
                                         --post_icon_url $POST_PICTURE
 
-            # Cleanup
-            - rm -rf dist
-
             # Generate dist
-            - grunt build
-            - grunt test
+            - npm run build
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
                                     --dependencies streamroot-dashjs-p2p-bundle
