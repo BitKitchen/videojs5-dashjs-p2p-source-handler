@@ -23,7 +23,6 @@ module.exports = {
         new webpack.DefinePlugin({
             __VERSION__: JSON.stringify(`v${version}`)
         }),
-        new webpack.optimize.OccurrenceOrderPlugin(true),
         // commented out UglifyJsPlugin because it freezes build at `91% additional asset processing`
         // new webpack.optimize.UglifyJsPlugin(),
     ]
