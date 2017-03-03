@@ -29,7 +29,7 @@ dependencies:
 
 test:
     override:
-      - grunt jshint
+      - npm run jshint
 
 deployment:
     features:

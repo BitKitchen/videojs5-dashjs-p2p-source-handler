@@ -16,9 +16,10 @@
   },
   "scripts": {
     "clean": "rimraf dist",
+    "jshint": "node_modules/.bin/jshint src/ test/",
     "build": "npm run clean && webpack --progress",
     "build:dev": "npm run clean && webpack --progress --watch",
-    "dev": "webpack-dev-server -d"
+    "dev": "webpack-dev-server -d",
   },
   "keywords": [
     "videojs",
