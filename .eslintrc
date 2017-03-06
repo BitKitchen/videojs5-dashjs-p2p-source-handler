@@ -5,6 +5,9 @@
         "mocha": true,
         "node": true
     },
+    "globals": {
+        "videojs": true
+    },
     "parser": "babel-eslint",
     "parserOptions": {
         "sourceType": "module"
