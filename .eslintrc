@@ -1,0 +1,14 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "mocha": true,
+        "node": true
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "settings": {},
+    "extends": "streamroot"
+}
