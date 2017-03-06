@@ -7,6 +7,7 @@ machine:
 dependencies:
     pre:
         - gem install aws-sdk
+        - 'echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > ~/.npmrc'
 
         # Clone tool
         - git config --global user.email $STREAMROOT_EMAIL
