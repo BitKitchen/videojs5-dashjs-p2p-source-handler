@@ -78,6 +78,28 @@ deployment:
                                       --key $S3_KEY
                                       --secret $S3_SECRET
 
+            #
+            ## Debug builds
+            #
+
+            # Install debug streamroot-dashjs-p2p-bundle
+            - rm -rf node_modules/streamroot-dashjs-p2p-bundle
+            - npm install @streamroot/dashjs-p2p-bundle-debug@beta
+            - mv node_modules/@streamroot/dashjs-p2p-bundle-debug node_modules/streamroot-dashjs-p2p-bundle
+            - mv node_modules/streamroot-dashjs-p2p-bundle/dashjs-p2p-bundle.js node_modules/streamroot-dashjs-p2p-bundle/streamroot-dashjs-p2p-bundle.debug.js
+
+            # Generate dist
+            - npm run build
+            - toolkit/add_banner.rb --file dist/$DIST_FILE
+                                    --deploy_env "staging - debug"
+                                    --version $(toolkit/current_version.rb)
+                                    --dependencies @streamroot/dashjs-p2p-bundle-debug
+            - cp dist/$DIST_FILE $CIRCLE_ARTIFACTS/$DIST_NAME.debug.js
+
+            #
+            ## End Debug builds
+            #
+
             # Changelog
             - toolkit/post_changelog.rb   --project $CIRCLE_PROJECT_REPONAME
                                           --env staging
@@ -128,6 +150,28 @@ deployment:
                                                      videojs5-dashjs-source-handler/latest/videojs5-dashjs-source-handler.js
                                       --key $S3_KEY
                                       --secret $S3_SECRET
+
+            #
+            ## Debug builds
+            #
+
+            # Install debug streamroot-dashjs-p2p-bundle
+            - rm -rf node_modules/streamroot-dashjs-p2p-bundle
+            - npm install @streamroot/dashjs-p2p-bundle-debug@rc
+            - mv node_modules/@streamroot/dashjs-p2p-bundle-debug node_modules/streamroot-dashjs-p2p-bundle
+            - mv node_modules/streamroot-dashjs-p2p-bundle/dashjs-p2p-bundle.js node_modules/streamroot-dashjs-p2p-bundle/streamroot-dashjs-p2p-bundle.debug.js
+
+            # Generate dist
+            - npm run build
+            - toolkit/add_banner.rb --file dist/$DIST_FILE
+                                    --deploy_env "preprod - debug"
+                                    --version $(toolkit/current_version.rb)
+                                    --dependencies @streamroot/dashjs-p2p-bundle-debug
+            - cp dist/$DIST_FILE $CIRCLE_ARTIFACTS/$DIST_NAME.debug.js
+
+            #
+            ## End Debug builds
+            #
 
             # Changelog
             - toolkit/post_changelog.rb   --project $CIRCLE_PROJECT_REPONAME
