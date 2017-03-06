@@ -100,6 +100,23 @@ deployment:
             ## End Debug builds
             #
 
+            # Generate manifest
+            - toolkit/build_manifest.rb --name "Video.js 5 dash.js source handler"
+                                        --version $(toolkit/current_version.rb)
+                                        --platform "web"
+                                        --artifacts ./$DIST_FILE
+                                        --debug-artifacts "https://circleci.com/api/v1/project/streamroot/$DIST_NAME/$CIRCLE_BUILD_NUM/artifacts/0/\$CIRCLE_ARTIFACTS/$DIST_NAME.debug.js"
+                                        --doc "https://github.com/streamroot/$DIST_NAME/tree/dev"
+                                        --output $CIRCLE_ARTIFACTS/manifest.yml
+
+            - toolkit/upload_to_s3.rb --bucket staging.streamroot.io
+                                      --region eu-west-1
+                                      --file $CIRCLE_ARTIFACTS/manifest.yml
+                                      --destinations $CIRCLE_PROJECT_REPONAME/$(toolkit/current_version.rb)/manifest.yml
+                                                     $CIRCLE_PROJECT_REPONAME/latest/manifest.yml
+                                      --key $S3_KEY
+                                      --secret $S3_SECRET
+
             # Changelog
             - toolkit/post_changelog.rb   --project $CIRCLE_PROJECT_REPONAME
                                           --env staging
@@ -172,6 +189,25 @@ deployment:
             #
             ## End Debug builds
             #
+
+            # Generate manifest
+            - toolkit/build_manifest.rb --name "Video.js 5 dash.js source handler"
+                                        --version $(toolkit/current_version.rb)
+                                        --platform "web"
+                                        --artifacts ./$DIST_FILE
+                                        --debug-artifacts "https://circleci.com/api/v1/project/streamroot/$DIST_NAME/$CIRCLE_BUILD_NUM/artifacts/0/\$CIRCLE_ARTIFACTS/$DIST_NAME.debug.js"
+                                        --doc "https://github.com/streamroot/$DIST_NAME/tree/master"
+                                        --output $CIRCLE_ARTIFACTS/manifest.yml
+
+            - toolkit/upload_to_s3.rb --bucket preprod.streamroot.io
+                                      --region eu-west-1
+                                      --file $CIRCLE_ARTIFACTS/manifest.yml
+                                      --destinations $CIRCLE_PROJECT_REPONAME/$(toolkit/current_version.rb --major)/manifest.yml
+                                                     $CIRCLE_PROJECT_REPONAME/$(toolkit/current_version.rb --no_patch)/manifest.yml
+                                                     $CIRCLE_PROJECT_REPONAME/$(toolkit/current_version.rb)/manifest.yml
+                                                     $CIRCLE_PROJECT_REPONAME/latest/manifest.yml
+                                      --key $S3_KEY
+                                      --secret $S3_SECRET
 
             # Changelog
             - toolkit/post_changelog.rb   --project $CIRCLE_PROJECT_REPONAME
