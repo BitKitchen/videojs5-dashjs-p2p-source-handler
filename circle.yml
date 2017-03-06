@@ -7,6 +7,7 @@ machine:
 dependencies:
     pre:
         - gem install aws-sdk
+        - 'echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > ~/.npmrc'
 
         # Clone tool
         - git config --global user.email $STREAMROOT_EMAIL
@@ -18,7 +19,6 @@ dependencies:
                                             --dependency_path dependencies.streamroot-dashjs-p2p-bundle
                                             --version beta
 
-        - npm install -g grunt-cli
         - npm prune
 
     override:
@@ -29,15 +29,15 @@ dependencies:
 
 test:
     override:
-      - grunt jshint
+      - npm run lint
 
 deployment:
     features:
         branch: /^(?!(?:dev|master)$).+$/
         commands:
             # Generate dist
-            - grunt build
-            - grunt test
+            - npm run build
+            - npm run karma
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
                                     --deploy_env $CIRCLE_BRANCH
@@ -56,15 +56,12 @@ deployment:
     staging:
         branch: dev
         commands:
-            # Cleanup
-            - rm -rf dist
-
             # Set version
             - toolkit/set_version.rb --version $(toolkit/current_version.rb --beta ${CIRCLE_BUILD_NUM})
 
             # Generate dist
-            - grunt build
-            - grunt test
+            - npm run build
+            - npm run karma
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
                                     --dependencies streamroot-dashjs-p2p-bundle
@@ -79,6 +76,45 @@ deployment:
                                       --file $CIRCLE_ARTIFACTS/$DIST_FILE
                                       --destinations $CIRCLE_PROJECT_REPONAME/$(toolkit/current_version.rb)/$DIST_FILE
                                                      $CIRCLE_PROJECT_REPONAME/latest/$DIST_FILE
+                                      --key $S3_KEY
+                                      --secret $S3_SECRET
+
+            #
+            ## Debug builds
+            #
+
+            # Install debug streamroot-dashjs-p2p-bundle
+            - rm -rf node_modules/streamroot-dashjs-p2p-bundle
+            - npm install @streamroot/dashjs-p2p-bundle-debug@beta
+            - mv node_modules/@streamroot/dashjs-p2p-bundle-debug node_modules/streamroot-dashjs-p2p-bundle
+            - mv node_modules/streamroot-dashjs-p2p-bundle/dashjs-p2p-bundle.js node_modules/streamroot-dashjs-p2p-bundle/streamroot-dashjs-p2p-bundle.debug.js
+
+            # Generate dist
+            - npm run build
+            - toolkit/add_banner.rb --file dist/$DIST_FILE
+                                    --deploy_env "staging - debug"
+                                    --version $(toolkit/current_version.rb)
+                                    --dependencies @streamroot/dashjs-p2p-bundle-debug
+            - cp dist/$DIST_FILE $CIRCLE_ARTIFACTS/$DIST_NAME.debug.js
+
+            #
+            ## End Debug builds
+            #
+
+            # Generate manifest
+            - toolkit/build_manifest.rb --name "Video.js 5 dash.js source handler"
+                                        --version $(toolkit/current_version.rb)
+                                        --platform "web"
+                                        --artifacts ./$DIST_FILE
+                                        --debug-artifacts "https://circleci.com/api/v1/project/streamroot/$DIST_NAME/$CIRCLE_BUILD_NUM/artifacts/0/\$CIRCLE_ARTIFACTS/$DIST_NAME.debug.js"
+                                        --doc "https://github.com/streamroot/$DIST_NAME/tree/dev"
+                                        --output $CIRCLE_ARTIFACTS/manifest.yml
+
+            - toolkit/upload_to_s3.rb --bucket staging.streamroot.io
+                                      --region eu-west-1
+                                      --file $CIRCLE_ARTIFACTS/manifest.yml
+                                      --destinations $CIRCLE_PROJECT_REPONAME/$(toolkit/current_version.rb)/manifest.yml
+                                                     $CIRCLE_PROJECT_REPONAME/latest/manifest.yml
                                       --key $S3_KEY
                                       --secret $S3_SECRET
 
@@ -112,12 +148,9 @@ deployment:
                                         --post_username $POST_USERNAME
                                         --post_icon_url $POST_PICTURE
 
-            # Cleanup
-            - rm -rf dist
-
             # Generate dist
-            - grunt build
-            - grunt test
+            - npm run build
+            - npm run karma
 
             - toolkit/add_banner.rb --file dist/$DIST_FILE
                                     --dependencies streamroot-dashjs-p2p-bundle
@@ -133,6 +166,47 @@ deployment:
                                                      videojs5-dashjs-source-handler/$(toolkit/current_version.rb --no_patch)/videojs5-dashjs-source-handler.js
                                                      videojs5-dashjs-source-handler/$(toolkit/current_version.rb)/videojs5-dashjs-source-handler.js
                                                      videojs5-dashjs-source-handler/latest/videojs5-dashjs-source-handler.js
+                                      --key $S3_KEY
+                                      --secret $S3_SECRET
+
+            #
+            ## Debug builds
+            #
+
+            # Install debug streamroot-dashjs-p2p-bundle
+            - rm -rf node_modules/streamroot-dashjs-p2p-bundle
+            - npm install @streamroot/dashjs-p2p-bundle-debug@rc
+            - mv node_modules/@streamroot/dashjs-p2p-bundle-debug node_modules/streamroot-dashjs-p2p-bundle
+            - mv node_modules/streamroot-dashjs-p2p-bundle/dashjs-p2p-bundle.js node_modules/streamroot-dashjs-p2p-bundle/streamroot-dashjs-p2p-bundle.debug.js
+
+            # Generate dist
+            - npm run build
+            - toolkit/add_banner.rb --file dist/$DIST_FILE
+                                    --deploy_env "preprod - debug"
+                                    --version $(toolkit/current_version.rb)
+                                    --dependencies @streamroot/dashjs-p2p-bundle-debug
+            - cp dist/$DIST_FILE $CIRCLE_ARTIFACTS/$DIST_NAME.debug.js
+
+            #
+            ## End Debug builds
+            #
+
+            # Generate manifest
+            - toolkit/build_manifest.rb --name "Video.js 5 dash.js source handler"
+                                        --version $(toolkit/current_version.rb)
+                                        --platform "web"
+                                        --artifacts ./$DIST_FILE
+                                        --debug-artifacts "https://circleci.com/api/v1/project/streamroot/$DIST_NAME/$CIRCLE_BUILD_NUM/artifacts/0/\$CIRCLE_ARTIFACTS/$DIST_NAME.debug.js"
+                                        --doc "https://github.com/streamroot/$DIST_NAME/tree/master"
+                                        --output $CIRCLE_ARTIFACTS/manifest.yml
+
+            - toolkit/upload_to_s3.rb --bucket preprod.streamroot.io
+                                      --region eu-west-1
+                                      --file $CIRCLE_ARTIFACTS/manifest.yml
+                                      --destinations $CIRCLE_PROJECT_REPONAME/$(toolkit/current_version.rb --major)/manifest.yml
+                                                     $CIRCLE_PROJECT_REPONAME/$(toolkit/current_version.rb --no_patch)/manifest.yml
+                                                     $CIRCLE_PROJECT_REPONAME/$(toolkit/current_version.rb)/manifest.yml
+                                                     $CIRCLE_PROJECT_REPONAME/latest/manifest.yml
                                       --key $S3_KEY
                                       --secret $S3_SECRET
 

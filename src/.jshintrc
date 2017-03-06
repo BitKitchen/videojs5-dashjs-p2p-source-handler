@@ -15,5 +15,8 @@
   "esnext": true,
   "nonew": true,
   "quotmark": "single",
-  "trailing": true
+  "trailing": true,
+  "globals": {
+    "videojs": true
+  }
 }

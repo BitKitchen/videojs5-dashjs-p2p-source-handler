@@ -6,6 +6,8 @@ This changelog's template come from [keepachangelog.com](http://keepachangelog.c
 ## [Dev]
 
 ## [Unreleased]
+### Changed
+- Replaced Grunt with Webpack.
 
 ## [1.1.0] - 2016-09-01
 ### Added

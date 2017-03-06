@@ -1,5 +1,4 @@
 import window from 'global/window';
-import videojs from 'video.js';
 import DashjsP2PBundle from 'streamroot-dashjs-p2p-bundle';
 
 let
