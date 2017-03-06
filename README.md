@@ -4,8 +4,9 @@ A video.js source handler for supporting MPEG-DASH playback over P2P or CDN thro
 
 ## Getting started
 
-Run `npm install` to install necessary dependencies such as [streamroot-dashjs-p2p-bundle](https://github.com/streamroot/dashjs-p2p-wrapper) and build the source handler. Build is triggered automatically after `npm install`.
-You can also use `grunt build` to build the files after a manual update.
+Run `npm install` to install necessary dependencies such as [streamroot-dashjs-p2p-bundle](https://github.com/streamroot/dashjs-p2p-wrapper).
+
+After installation is complete, run `npm run build` to build the source handler.
 
 The built files will be placed into `dist` directory.
 
@@ -13,13 +14,9 @@ In addition to built files, you'll need to include [video.js 5.0+](http://videoj
 
 To enable a graphic visualization of P2P traffic (as a debug tool), you can add following lines to your page. Note that in this case, `p2pConfig` must include `debug: true` as described [here](https://streamroot.readme.io/docs/p2p-config) :
 
-```javascript
-<script src="http://cdn.streamroot.io/2/scripts/p2pGraph.js"></script>
-<script src="http://cdn.streamroot.io/2/scripts/peerStat.js"></script>
-
-<script src="http://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.min.js"> </script>
-<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.min.css">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.9/d3.min.js"> </script>
+```html
+<div id="streamroot-graphs"></div>
+<script src="https://tools.streamroot.io/usage-graphs/latest/graphs.js"></script>
 ```
 
 Putting it all together:
@@ -33,14 +30,6 @@ Putting it all together:
 
   <!-- videojs-contrib-dash script -->
   <script src="dist/videojs5-dashjs-p2p-source-handler.js"></script>
-
-  <!-- p2p graphics and peer stats -->
-  <script src="http://cdn.streamroot.io/2/scripts/p2pGraph.js"></script>
-  <script src="http://cdn.streamroot.io/2/scripts/peerStat.js"></script>
-  <!-- graphics dependencies -->
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.min.js"> </script>
-  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.4.6/rickshaw.min.css">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.9/d3.min.js"> </script>
 </head>
 <body>
   <div>
@@ -71,6 +60,9 @@ Putting it all together:
       });
     });
   </script>
+
+  <div id="streamroot-graphs"></div>
+  <script src="https://tools.streamroot.io/usage-graphs/latest/graphs.js"></script>
 </body>
 </html>
 ```
@@ -117,6 +109,15 @@ this.mediaPlayer_ = DashjsP2PBundle.MediaPlayer(Html5DashJS.context_).create(opt
 
 p2pConfig is described [here](https://streamroot.readme.io/docs/p2p-config). Check it to get better understanding on what can be configured.
 You can get your `streamrootKey` by signing up into [Streamroot's dashboard](http://dashboard.streamroot.io/signup).
+
+## Developing, Testing, Contributing
+
+Contrubtions are very welcome.
+
+1. Please make sure your code is ok with our linting rules by running `npm run lint`.
+1. Make sure that it passes integration test by running `npm run karma`. And feel free to add more tests.
+1. You can run webpack dev server by `npm run dev` and enjoy automatic rebuild on source files change.
+1. Or if you prefer to just have an auot rebuild feature without server use `npm run build:dev`.
 
 ## Protected Content
 
