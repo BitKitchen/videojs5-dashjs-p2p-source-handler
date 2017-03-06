@@ -1,21 +1,21 @@
 (function(window, videojs, qunit) {
-  'use strict';
+    'use strict';
 
-  var
-    // local QUnit aliases
-    // http://api.qunitjs.com/
+    var
+        // local QUnit aliases
+        // http://api.qunitjs.com/
 
-    // module(name, {[setup][ ,teardown]})
-    module = qunit.module,
-    // test(name, callback)
-    test = qunit.test,
-    // ok(value, [message])
-    ok = qunit.ok;
+        // module(name, {[setup][ ,teardown]})
+        module = qunit.module,
+        // test(name, callback)
+        test = qunit.test,
+        // ok(value, [message])
+        ok = qunit.ok;
 
-  module('videojs-dash globals');
+    module('videojs-dash globals');
 
-  test('has expected globals', function() {
-    ok(videojs.Html5DashJS, 'videojs has "Html5Dash" property');
-  });
+    test('has expected globals', function() {
+        ok(videojs.Html5DashJS, 'videojs has "Html5Dash" property');
+    });
 
 })(window, window.videojs, window.QUnit);

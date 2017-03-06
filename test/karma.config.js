@@ -1,32 +1,32 @@
 module.exports = function(config) {
-  config.set({
-    basePath: '..',
+    config.set({
+        basePath: '..',
 
-    files: [
-      'node_modules/video.js/dist/video-js.css',
-      'node_modules/video.js/dist/video.js',
-      'dist/videojs5-dashjs-p2p-source-handler.js',
-      'test/integration.test.js',
-      'test/globals.test.js'
-    ],
+        files: [
+            'node_modules/video.js/dist/video-js.css',
+            'node_modules/video.js/dist/video.js',
+            'dist/videojs5-dashjs-p2p-source-handler.js',
+            'test/integration.test.js',
+            'test/globals.test.js'
+        ],
 
-    frameworks: ['qunit'],
+        frameworks: ['qunit'],
 
-    singleRun: true,
+        singleRun: true,
 
-    browserDisconnectTolerance: 0,
+        browserDisconnectTolerance: 0,
 
-    captureTimeout: 15000,
+        captureTimeout: 15000,
 
-    browserNoActivityTimeout: 15000,
+        browserNoActivityTimeout: 15000,
 
-    browsers: process.env.TRAVIS ? ['travisChrome'] : ['Chrome', 'Firefox'],
+        browsers: process.env.TRAVIS ? ['travisChrome'] : ['Chrome', 'Firefox'],
 
-    customLaunchers: {
-      travisChrome: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      }
-    }
-  });
+        customLaunchers: {
+            travisChrome: {
+                base: 'Chrome',
+                flags: ['--no-sandbox']
+            }
+        }
+    });
 };
