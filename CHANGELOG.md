@@ -6,6 +6,8 @@ This changelog's template come from [keepachangelog.com](http://keepachangelog.c
 ## [Dev]
 
 ## [Unreleased]
+
+## [1.2.2] - 2017-03-20
 ### Fixed
 - Upload manifest file in same folder than dist file
 
@@ -34,3 +36,4 @@ This changelog's template come from [keepachangelog.com](http://keepachangelog.c
 - CircleCI integration
 
 [1.1.30]: https://github.com/streamroot/videojs5-dashjs-p2p-source-handler/compare/v1.1.0...v1.1.30[1.1.31]: https://github.com/streamroot/videojs5-dashjs-p2p-source-handler/compare/v1.1.0...v1.1.31[1.1.32]: https://github.com/streamroot/videojs5-dashjs-p2p-source-handler/compare/v1.1.0...v1.1.32[1.2.0]: https://github.com/streamroot/videojs5-dashjs-p2p-source-handler/compare/v1.1.0...v1.2.0[1.2.1]: https://github.com/streamroot/videojs5-dashjs-p2p-source-handler/compare/v1.2.0...v1.2.1
+[1.2.2]: https://github.com/streamroot/videojs5-dashjs-p2p-source-handler/compare/v1.2.0...v1.2.2
