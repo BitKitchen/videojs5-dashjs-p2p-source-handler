@@ -6,6 +6,8 @@ This changelog's template come from [keepachangelog.com](http://keepachangelog.c
 ## [Dev]
 
 ## [Unreleased]
+### Fixed
+- Upload manifest file in same folder than dist file
 
 ## [1.2.0] - 2017-03-07
 ### Changed

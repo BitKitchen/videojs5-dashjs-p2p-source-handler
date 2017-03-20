@@ -203,10 +203,10 @@ deployment:
             - toolkit/upload_to_s3.rb --bucket preprod.streamroot.io
                                       --region eu-west-1
                                       --file $CIRCLE_ARTIFACTS/manifest.yml
-                                      --destinations $CIRCLE_PROJECT_REPONAME/$(toolkit/current_version.rb --major)/manifest.yml
-                                                     $CIRCLE_PROJECT_REPONAME/$(toolkit/current_version.rb --no_patch)/manifest.yml
-                                                     $CIRCLE_PROJECT_REPONAME/$(toolkit/current_version.rb)/manifest.yml
-                                                     $CIRCLE_PROJECT_REPONAME/latest/manifest.yml
+                                      --destinations videojs5-dashjs-source-handler/$(toolkit/current_version.rb --major)/manifest.yml
+                                                     videojs5-dashjs-source-handler/$(toolkit/current_version.rb --no_patch)/manifest.yml
+                                                     videojs5-dashjs-source-handler/$(toolkit/current_version.rb)/manifest.yml
+                                                     videojs5-dashjs-source-handler/latest/manifest.yml
                                       --key $S3_KEY
                                       --secret $S3_SECRET
 
