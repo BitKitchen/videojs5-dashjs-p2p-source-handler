@@ -47,3 +47,4 @@ This changelog's template come from [keepachangelog.com](http://keepachangelog.c
 [1.2.10]: https://github.com/streamroot/videojs5-dashjs-p2p-source-handler/compare/v1.2.2...v1.2.10
 [1.2.11]: https://github.com/streamroot/videojs5-dashjs-p2p-source-handler/compare/v1.2.2...v1.2.11
 [1.2.12]: https://github.com/streamroot/videojs5-dashjs-p2p-source-handler/compare/v1.2.2...v1.2.12
+[1.2.13]: https://github.com/streamroot/videojs5-dashjs-p2p-source-handler/compare/v1.2.2...v1.2.13
