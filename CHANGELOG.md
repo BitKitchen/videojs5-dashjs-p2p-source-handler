@@ -6,6 +6,7 @@ This changelog's template come from [keepachangelog.com](http://keepachangelog.c
 ## [Dev]
 
 ## [Unreleased]
+- VJS 6 compatibility: use videojs.getTech instead of videojs.getComponent
 
 ## [1.2.2] - 2017-03-20
 ### Fixed
