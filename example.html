@@ -33,11 +33,12 @@
     var player = videojs('vid', {
       html5: {
         dash: {
-          limitBitrateByPortal: true
+          limitBitrateByPortal: true,
+          debugLogToConsole: false,
         },
         streamroot: {
           p2pConfig: {
-            streamrootKey: "dev",
+            streamrootKey: "dev"
           }
         }
       }
