@@ -6,8 +6,11 @@ This changelog's template come from [keepachangelog.com](http://keepachangelog.c
 ## [Dev]
 
 ## [Unreleased]
+### Added
+- `debugLogToConsole` option to enable or disable Dash.js debug logging.
 
 ## [1.2.23] - 2017-07-26
+### Fixed
 - VJS 6 compatibility: use videojs.getTech instead of videojs.getComponent
 
 ## [1.2.2] - 2017-03-20

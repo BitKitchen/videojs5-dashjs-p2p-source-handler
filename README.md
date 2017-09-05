@@ -41,12 +41,12 @@ Putting it all together:
     var options = {
         html5: {
             dash: {
-              limitBitrateByPortal: true
+              limitBitrateByPortal: true,
+              debugLogToConsole: true
             },
             streamroot: {
                 p2pConfig: {
-                    streamrootKey: "YOUR_STREAMROOTKEY_HERE",
-                    debug: true
+                    streamrootKey: "YOUR_STREAMROOTKEY_HERE"
                 }
             }
         }

@@ -81,6 +81,13 @@ class Html5DashJS {
             Html5DashJS.beforeInitialize(player, this.mediaPlayer_);
         }
 
+        // Debug log must be silenced before initialize
+        if (options.dash && options.dash.debugLogToConsole) {
+            this.mediaPlayer_.getDebug().setLogToBrowserConsole(options.dash.debugLogToConsole);
+        } else {
+            this.mediaPlayer_.getDebug().setLogToBrowserConsole(false);
+        }
+
         // Must run controller before these two lines or else there is no
         // element to bind to.
         this.mediaPlayer_.initialize();
