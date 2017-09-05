@@ -13,7 +13,7 @@
 
 <body>
   <script src="node_modules/video.js/dist/video.js"></script>
-  <script src="dist/videojs5-dashjs-p2p-source-handler.js"></script>
+  <script src="http://localhost:8080/videojs5-dashjs-p2p-source-handler.js"></script>
 
   <script>
     var fixture;
@@ -37,18 +37,14 @@
         },
         streamroot: {
           p2pConfig: {
-            streamrootKey: "a913c6b8-5037-4ed8-9c94-918f70c40320",
-            debug: true
+            streamrootKey: "dev",
           }
         }
       }
     });
 
     player.ready(function() {
-      player.src({
-        src: 'http://wowza-test.streamroot.io/vodOrigin/tos.smil/manifest.mpd',
-        type: 'application/dash+xml'
-      });
+      player.src('//wowza-test-cloudfront.streamroot.io/vodOrigin/tos1500.mp4/manifest.mpd');
     });
   </script>
 
